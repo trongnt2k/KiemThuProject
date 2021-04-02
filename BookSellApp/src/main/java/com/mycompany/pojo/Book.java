@@ -18,6 +18,7 @@ public class Book {
     private String image;
     private int BookCatalog_id;
     private int Customer_id;
+    private String author;
 
     /**
      * @return the id
@@ -101,5 +102,19 @@ public class Book {
      */
     public void setCustomer_id(int Customer_id) {
         this.Customer_id = Customer_id;
+    }
+
+    /**
+     * @return the author
+     */
+    public String getAuthor() {
+        return author;
+    }
+
+    /**
+     * @param author the author to set
+     */
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

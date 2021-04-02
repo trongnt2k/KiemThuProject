@@ -20,12 +20,12 @@ import java.util.List;
 public class Book_catalogService {
     private Connection conn;
     
-    public Book_catalogService(Connection conn) {
-        this.conn = conn;
-}
+    
+
     public List<Book_catalog> getBookcatalog() throws SQLException {
+        Connection conn = JdbcUtils.getConn();
         Statement stm = this.conn.createStatement();
-        ResultSet r = stm.executeQuery("SELECT * FROM category");
+        ResultSet r = stm.executeQuery("SELECT * FROM book_catalog");
         
         List<Book_catalog> re = new ArrayList<>();
         while (r.next()) {
@@ -36,6 +36,9 @@ public class Book_catalogService {
             
             re.add(c);
         }
+        conn.close();
         return re;
     }
-}
+}            
+
+ 

@@ -1,0 +1,4 @@
+--patch-module
+com.mycompany.booksellapp=_
+--add-reads
+com.mycompany.booksellapp=ALL-UNNAMED

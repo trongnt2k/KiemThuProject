@@ -13,6 +13,8 @@ import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,8 +30,8 @@ public class BookService {
     public List<Book> getBooks(String kw) throws SQLException{
         if (kw == null)
             throw new SQLDataException();
-        
-        String sql ="SELECT * FROM book WHERE name like concat('%', ?, '%')";
+        ////CHẠY THỬ RỒI KIỂM TRA LẠI XEM SQL CHẠY ĐÚNG KO. WHERE CHỈ CÓ NAME, TÌM AUTHOR ĐC KO?
+        String sql ="SELECT * FROM book WHERE name_book like concat('%', ?, '%')";
         PreparedStatement stm =this.conn.prepareStatement(sql);
         stm.setString(1, kw);
         
@@ -43,21 +45,72 @@ public class BookService {
             b.setImage(rs.getString("image"));
             b.setBookCatalog_id(rs.getInt("BookCatalog_id"));
             b.setCustomer_id(rs.getInt("Customer_id"));
+            b.setAuthor(rs.getString("author"));
             
             books.add(b);
         }
         return books;
     }
-    public boolean addBook(Book p) throws SQLException {
-        String sql = "INSERT INTO book(name_book, price, BookCatalog_id, Customer_id) VALUES(?, ?, ?, ?)";
-        PreparedStatement stm = this.conn.prepareStatement(sql);
-        stm.setString(1, p.getName_book());
-        stm.setBigDecimal(2, p.getPrice());
-        stm.setInt(3, p.getBookCatalog_id());
-        stm.setInt(4, p.getCustomer_id());
+    
+    
+     public boolean addBook(Book b) {
+        try {
+            String sql = "INSERT INTO Book(name_book, price, BookCatalog_id) VALUES(?, ?, ?)";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setString(1, b.getName_book());
+            stm.setBigDecimal(2, b.getPrice());
+            stm.setInt(3, b.getBookCatalog_id());
+            
+            
+            int kq = stm.executeUpdate();
+            
+            return kq > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        int row = stm.executeUpdate();
-        
-        return row > 0;
+        return false;
     }
+    
+    public boolean deleteBook(int bookId) {
+       
+        try {
+            String sql = "DELETE FROM book WHERE id=?";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setInt(1, bookId);
+            
+            int row = stm.executeUpdate();
+            
+            return row > 0;
+            
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean updateBook(Book b) {
+        try {
+            String sql = "UPDATE book SET name_book=?, price=?, BookCatalog_id=? WHERE id=?";
+            PreparedStatement stm = this.conn.prepareStatement(sql);
+            stm.setString(1, b.getName_book());
+            stm.setBigDecimal(2, b.getPrice());
+            stm.setInt(3, b.getBookCatalog_id());
+            stm.setInt(4, b.getId());
+            
+            int rows = stm.executeUpdate();
+            
+            return rows > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(BookService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
+   
 }
+
+
