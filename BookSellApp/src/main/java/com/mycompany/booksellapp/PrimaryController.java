@@ -1,10 +1,11 @@
 package com.mycompany.booksellapp;
 
-import com.mycompany.pojo.Book_catalog;
+import booksellapp.Utils;
 import com.mycompany.pojo.Book;
+import com.mycompany.pojo.Book_catalog;
+import com.mycompany.service.BookService;
 import com.mycompany.service.Book_catalogService;
 import com.mycompany.service.JdbcUtils;
-import com.mycompany.service.BookService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -13,24 +14,24 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javax.crypto.AEADBadTagException;
 
-public class PrimaryController implements Initializable {
+public class PrimaryController implements Initializable{
     @FXML private ComboBox<Book_catalog> cbCates;
     @FXML private TextField txtName;
     @FXML private TextField txtPrice;
-    @FXML private TextField txtAuthor;
     @FXML private TableView<Book> tbBooks;
     @FXML private TextField txtKeyWord;
 
@@ -38,8 +39,7 @@ public class PrimaryController implements Initializable {
     private void switchToSecondary() throws IOException {
         App.setRoot("secondary");
     }
-
-    @Override
+     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Book_catalogService s = new Book_catalogService();
         try {
@@ -47,7 +47,6 @@ public class PrimaryController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         loadColumns();
         try {
             loadBooks("");
@@ -64,8 +63,65 @@ public class PrimaryController implements Initializable {
             }
         });
     }
+    private void loadColumns() {
+        TableColumn colId = new TableColumn("Id");
+        colId.setCellValueFactory(new PropertyValueFactory("id"));
+
+        TableColumn colName = new TableColumn("Name");
+        colName.setCellValueFactory(new PropertyValueFactory("name_book"));
+        
+        TableColumn colPrice = new TableColumn("Price");
+        colPrice.setCellValueFactory(new PropertyValueFactory("price"));
+        
+        TableColumn colAction = new TableColumn("ACTIONS");
+        colAction.setCellFactory(obj -> {
+            Button btn = new Button("Xóa");
+            btn.setOnAction(evt -> {
+                Utils.getBox("Bạn có chắc chắn xóa không?", Alert.AlertType.CONFIRMATION)
+                     .showAndWait().ifPresent(b -> {
+                         if (b == ButtonType.OK) {
+                             Button bt = (Button) evt.getSource();
+                             TableCell cell = (TableCell) bt.getParent();
+                             Book q = (Book)cell.getTableRow().getItem();
+                             
+                             Connection conn;
+                             try {
+                                 conn = JdbcUtils.getConn();
+                                 BookService s = new BookService(conn);
+                                 
+                                 if (s.deleteBook(q.getId())) {
+                                     Utils.getBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
+                                     loadBooks("");
+                                 } else
+                                     Utils.getBox("FAILED", Alert.AlertType.ERROR).show();
+                                 
+                                 conn.close();
+                             } catch (SQLException ex) {
+                                 Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                         }
+                    });
+            });
+            
+            TableCell cell = new TableCell();
+            cell.setGraphic(btn);
+            return cell;
+        });
+        
+        this.tbBooks.getColumns().addAll(colId, colName, colPrice, colAction);
+    }
     
-    public void addHandler(ActionEvent evt) {
+    private void loadBooks(String kw) throws SQLException {
+        Connection conn = JdbcUtils.getConn();
+        
+        BookService s = new BookService(conn);
+        
+        tbBooks.setItems(FXCollections.observableArrayList(s.getBooks(kw)));
+        
+        conn.close();
+    }
+    
+     public void addHandler(ActionEvent evt) {
         try {
             Connection conn = JdbcUtils.getConn();
             BookService p = new BookService(conn);
@@ -73,7 +129,6 @@ public class PrimaryController implements Initializable {
             Book b = new Book();
             b.setName_book(txtName.getText());
             b.setPrice(new BigDecimal(txtPrice.getText()));
-            b.setAuthor(txtAuthor.getText());
             b.setBookCatalog_id(cbCates.getSelectionModel().getSelectedItem().getId());
             
             
@@ -89,30 +144,23 @@ public class PrimaryController implements Initializable {
             Logger.getLogger(PrimaryController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void loadColumns() {
-        TableColumn colId = new TableColumn("Id");
-        colId.setCellValueFactory(new PropertyValueFactory("id"));
-
-        TableColumn colName = new TableColumn("Name");
-        colName.setCellValueFactory(new PropertyValueFactory("name_book"));
+     
+     
+     
+     public void updateHandler(ActionEvent evt) throws SQLException {
+        Book p = this.tbBooks.getSelectionModel().getSelectedItem();
+        p.setName_book(txtName.getText());
+        p.setPrice(new BigDecimal(txtPrice.getText()));
+        p.setBookCatalog_id(this.cbCates.getSelectionModel().getSelectedItem().getId());
         
-        TableColumn colPrice = new TableColumn("Price");
-        colPrice.setCellValueFactory(new PropertyValueFactory("price"));
-        
-        TableColumn colAuthor = new TableColumn("Author");
-        colPrice.setCellValueFactory(new PropertyValueFactory("author"));
-        
-        this.tbBooks.getColumns().addAll(colId, colName, colPrice, colAuthor);
-    }
-    
-    private void loadBooks(String kw) throws SQLException {
         Connection conn = JdbcUtils.getConn();
-        
         BookService s = new BookService(conn);
-        
-        tbBooks.setItems(FXCollections.observableArrayList(s.getBooks(kw)));
-        
+        if (s.updateBook(p) == true) {
+            Utils.getBox("SUCCESSFUL", Alert.AlertType.INFORMATION).show();
+            loadBooks("");
+        } else
+            Utils.getBox("FAILED", Alert.AlertType.ERROR).show();
         conn.close();
     }
 }
+    

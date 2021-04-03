@@ -17,14 +17,10 @@ import java.util.List;
  *
  * @author User
  */
-public class Book_catalogService {
-    private Connection conn;
-    
-    
-
+public class Book_catalogService { 
     public List<Book_catalog> getBookcatalog() throws SQLException {
         Connection conn = JdbcUtils.getConn();
-        Statement stm = this.conn.createStatement();
+        Statement stm = conn.createStatement();
         ResultSet r = stm.executeQuery("SELECT * FROM book_catalog");
         
         List<Book_catalog> re = new ArrayList<>();

@@ -30,6 +30,6 @@ public class JdbcUtils {
     
     public static Connection getConn() throws SQLException {
        
-        return DriverManager.getConnection("jdbc:mysql://localhost/booksellappdb", "root", "12345678");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/booksaleappdb", "root", "Lehaitrieu1601");
     }
 }

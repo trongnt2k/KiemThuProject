@@ -13,6 +13,11 @@ public class Book_catalog {
     private int id;
     private String name;
     private String note;
+    
+    @Override
+    public String toString(){
+        return this.name;
+    }
 
     /**
      * @return the id
