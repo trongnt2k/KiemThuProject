@@ -55,11 +55,12 @@ public class BookService {
     
      public boolean addBook(Book b) {
         try {
-            String sql = "INSERT INTO Book(name_book, price, BookCatalog_id) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO Book(name_book, price, BookCatalog_id, author) VALUES(?, ?, ?, ?)";
             PreparedStatement stm = this.conn.prepareStatement(sql);
             stm.setString(1, b.getName_book());
             stm.setBigDecimal(2, b.getPrice());
             stm.setInt(3, b.getBookCatalog_id());
+            stm.setString(4, b.getAuthor());
             
             
             int kq = stm.executeUpdate();
@@ -93,12 +94,14 @@ public class BookService {
     
     public boolean updateBook(Book b) {
         try {
-            String sql = "UPDATE book SET name_book=?, price=?, BookCatalog_id=? WHERE id=?";
+            String sql = "UPDATE book SET name_book=?, price=?, BookCatalog_id=? author=? WHERE id=?";
             PreparedStatement stm = this.conn.prepareStatement(sql);
             stm.setString(1, b.getName_book());
             stm.setBigDecimal(2, b.getPrice());
             stm.setInt(3, b.getBookCatalog_id());
-            stm.setInt(4, b.getId());
+            stm.setString(4, b.getAuthor());
+
+            stm.setInt(5, b.getId());
             
             int rows = stm.executeUpdate();
             

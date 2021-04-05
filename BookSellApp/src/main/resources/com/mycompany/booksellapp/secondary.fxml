@@ -1,14 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.booksellapp.SecondaryController">
+<VBox alignment="CENTER" prefHeight="680.0" prefWidth="839.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.booksellapp.SecondaryController">
     <children>
-        <Label text="Secondary View" />
-        <Button fx:id="secondaryButton" text="Switch to Primary View" onAction="#switchToPrimary" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="QUẢN LÝ KHÁCH HÀNG" />
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Book" />
+                  <MenuItem mnemonicParsing="false" text="Customer" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane prefHeight="456.0" prefWidth="909.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Tìm kiếm, thay đổi thông tin khách hàng">
+               <content>
+                  <SplitPane orientation="VERTICAL" prefHeight="415.0" prefWidth="799.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="417.0" prefWidth="767.0">
+                           <children>
+                              <TilePane layoutX="16.0" layoutY="4.0" prefHeight="21.0" prefWidth="409.0">
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="163.0" text="Tìm kiếm khách hàng" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="13.0" layoutY="39.0" prefHeight="45.0" prefWidth="183.0">
+                                 <children>
+                                    <TextField fx:id="txtKeyWord" prefHeight="31.0" prefWidth="160.0" promptText="Tên khách hàng" />
+                                 </children>
+                              </TilePane>
+                              <TilePane alignment="TOP_CENTER" layoutX="2.0" layoutY="74.0" prefHeight="200.0" prefWidth="707.0">
+                                 <children>
+                                    <TableView fx:id="tbCustomers" prefHeight="200.0" prefWidth="814.0" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="14.0" layoutY="281.0" prefHeight="32.0" prefWidth="200.0">
+                                 <children>
+                                    <Label prefHeight="21.0" prefWidth="186.0" text="Sửa thông tin khách hàng" />
+                                 </children>
+                              </TilePane>
+                              <TextField layoutX="211.0" layoutY="39.0" prefHeight="31.0" prefWidth="161.0" promptText="Số điện thoại" />
+                              <TilePane layoutX="24.0" layoutY="310.0" prefHeight="48.0" prefWidth="259.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Họ:" wrappingWidth="58.560546875" />
+                                    <TextField fx:id="txtFirstname" editable="false" prefHeight="31.0" prefWidth="116.0" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="2.0" layoutY="358.0" prefHeight="52.0" prefWidth="245.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tên:" />
+                                    <TextField fx:id="txtLastname" prefHeight="31.0" prefWidth="121.0" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="255.0" layoutY="307.0" prefHeight="53.0" prefWidth="361.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Số điện thoại:" />
+                                    <TextField fx:id="txtNumberPhone" prefHeight="31.0" prefWidth="144.0" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="227.0" layoutY="361.0" prefHeight="62.0" prefWidth="349.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ:" />
+                                    <TextField fx:id="txtAddress" prefHeight="31.0" prefWidth="160.0" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="602.0" layoutY="308.0" prefHeight="52.0" prefWidth="110.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#updateHandler" prefHeight="31.0" prefWidth="78.0" text="Lưu" />
+                                 </children>
+                              </TilePane>
+                              <TilePane layoutX="602.0" layoutY="353.0" prefHeight="43.0" prefWidth="95.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" text="Xóa" />
+                                 </children>
+                              </TilePane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+            </Tab>
+          <Tab text="Thêm khách hàng">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.3616504854368932" orientation="VERTICAL" prefHeight="414.0" prefWidth="799.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="797.0">
+                                 <children>
+                                    <TextField fx:id="txtFirstName" layoutX="14.0" layoutY="14.0" promptText="Họ" />
+                                    <TextField fx:id="txtLastName" layoutX="14.0" layoutY="82.0" promptText="Tên" />
+                                    <TextField fx:id="txtPhoneNumber" layoutX="282.0" layoutY="14.0" promptText="Số điện thoại" />
+                                    <TextField fx:id="txtAddress" layoutX="282.0" layoutY="82.0" promptText="Địa chỉ" />
+                                    <Button layoutX="610.0" layoutY="82.0" mnemonicParsing="false" onAction="#addHandler" prefHeight="31.0" prefWidth="99.0" text="Thêm" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView layoutX="-1.0" layoutY="16.0" prefHeight="242.0" prefWidth="799.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </TilePane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

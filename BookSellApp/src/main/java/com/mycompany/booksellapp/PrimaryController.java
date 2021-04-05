@@ -37,9 +37,9 @@ public class PrimaryController implements Initializable{
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        App.setRoot("primary");
     }
-     @Override
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         Book_catalogService s = new Book_catalogService();
         try {
@@ -72,6 +72,9 @@ public class PrimaryController implements Initializable{
         
         TableColumn colPrice = new TableColumn("Price");
         colPrice.setCellValueFactory(new PropertyValueFactory("price"));
+        
+        TableColumn colAuthor = new TableColumn("Author");
+        colPrice.setCellValueFactory(new PropertyValueFactory("author"));
         
         TableColumn colAction = new TableColumn("ACTIONS");
         colAction.setCellFactory(obj -> {
@@ -108,7 +111,7 @@ public class PrimaryController implements Initializable{
             return cell;
         });
         
-        this.tbBooks.getColumns().addAll(colId, colName, colPrice, colAction);
+        this.tbBooks.getColumns().addAll(colId, colName, colPrice, colAuthor,colAction);
     }
     
     private void loadBooks(String kw) throws SQLException {
