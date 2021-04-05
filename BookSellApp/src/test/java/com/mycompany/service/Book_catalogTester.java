@@ -6,11 +6,14 @@
 package com.mycompany.service;
 
 import com.mycompany.pojo.Book_catalog;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,20 +22,40 @@ import org.junit.jupiter.api.Test;
  * @author Admin
  */
 public class Book_catalogTester {
-//    @Test
-//      public void testQuantity() throws SQLException {
-//      List<Book_catalog> cates = new Book_catalogService().getBookcatalog();
-//        Assertions.assertTrue(cates.size() >= 3);
-//    }
-//  
-//    public void testUnique() throws SQLException {
-//        List<Book_catalog> cates = new Book_catalogService().getBookcatalog();
-//        
-//        List<String> names = new ArrayList<>();
-//        cates.forEach(c -> names.add(c.getName()));
-//        
-//        Set<String> temp = new HashSet<>(names);
-//        
-//        Assertions.assertEquals(names.size(), temp.size());
-//    }
+    @Test
+    public void testQuantity() {
+        try {
+            Connection conn = JdbcUtils.getConn();
+            
+            Book_catalogService s = new Book_catalogService();
+            List<Book_catalog> cates = s.getBookcatalog();
+            
+            conn.close();
+            
+            Assertions.assertTrue(cates.size() >= 3);
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_catalogTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @Test
+    public void testUniqueName() {
+        try {
+            Connection conn = JdbcUtils.getConn();
+            
+            Book_catalogService s = new Book_catalogService();
+            List<Book_catalog> cates = s.getBookcatalog();
+            
+            List<String> names = new ArrayList<>();
+            cates.forEach(c -> names.add(c.getName()));
+            
+            Set<String> testNames = new HashSet<>(names);
+            
+            conn.close();
+            
+            Assertions.assertEquals(names.size(), testNames.size());
+        } catch (SQLException ex) {
+            Logger.getLogger(Book_catalogTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
