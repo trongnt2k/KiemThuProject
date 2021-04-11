@@ -25,5 +25,6 @@
       <PasswordField fx:id="passwd" promptText="Enter password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
       <Button mnemonicParsing="false" onAction="#login" text="LOGIN" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#ChangeToRegister" text="REGISTER" GridPane.columnIndex="1" GridPane.rowIndex="3" />
    </children>
 </GridPane>

@@ -60,5 +60,6 @@
       </Text>
       <Button mnemonicParsing="false" onAction="#register" text="Sign Up" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
       <PasswordField fx:id="PasWord" maxWidth="250.0" promptText="Enter Password" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#ChangeToLogin" text="Back To Login" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
    </children>
 </GridPane>

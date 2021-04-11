@@ -7,14 +7,22 @@ package com.mycompany.booksellapp;
 
 import booksellapp.Utils;
 import com.mycompany.service.JdbcUtils;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -26,6 +34,17 @@ public class RegisterController {
     @FXML private TextField Email;
     @FXML private TextField UsrName;
     @FXML private PasswordField PasWord;
+    @FXML
+    void ChangeToLogin(ActionEvent event) throws IOException{
+        Parent loginView = FXMLLoader.load(getClass().getResource("login.fxml"));
+        
+        Scene loginViewScene = new Scene(loginView);
+        
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(loginViewScene);
+        window.show();
+    }
     @FXML
     void register(ActionEvent event) throws SQLException{
         Connection conn = JdbcUtils.getConn();
