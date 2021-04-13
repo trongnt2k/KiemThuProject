@@ -52,7 +52,7 @@ public class LoginController {
         LoginService ls = new LoginService();
         if(usernm.getText() == null || usernm.getText().trim().isEmpty() || passwd.getText() == null || passwd.getText().trim().isEmpty())
             Utils.getBox("FILL IN USERNAME AND PASSWORD BOX PLEASE", Alert.AlertType.ERROR).show();
-        else if(ls.logins(usernm.getText(), passwd.getText()) == true){
+        else if(ls.logins(usernm.getText(), passwd.getText()) == 1){
             Parent pri = FXMLLoader.load(getClass().getResource("primary.fxml"));
         
             Scene scene = new Scene(pri);
@@ -61,7 +61,18 @@ public class LoginController {
         
             window.setScene(scene);
             window.show();
-        }else{
+        }
+        else if(ls.logins(usernm.getText(), passwd.getText()) == 0){
+            Parent pri = FXMLLoader.load(getClass().getResource("customer.fxml"));
+        
+            Scene scene = new Scene(pri);
+        
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+            window.setScene(scene);
+            window.show();
+        }
+        else{
             Utils.getBox("LOGIN FAILED", Alert.AlertType.ERROR).show();
         }
     }

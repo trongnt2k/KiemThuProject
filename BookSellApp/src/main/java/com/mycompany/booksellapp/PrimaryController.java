@@ -6,6 +6,7 @@ import com.mycompany.pojo.Book_catalog;
 import com.mycompany.service.BookService;
 import com.mycompany.service.Book_catalogService;
 import com.mycompany.service.JdbcUtils;
+import com.mycompany.service.LoginService;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -17,7 +18,11 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class PrimaryController implements Initializable{
     @FXML private ComboBox<Book_catalog> cbCates;
@@ -38,6 +44,17 @@ public class PrimaryController implements Initializable{
     @FXML
     private void switchToSecondary() throws IOException {
         App.setRoot("primary");
+    }
+    @FXML
+    void ChangeToLogin(ActionEvent event) throws IOException{
+        Parent registerView = FXMLLoader.load(getClass().getResource("login.fxml"));
+        
+        Scene registerViewScene = new Scene(registerView);
+        
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        
+        window.setScene(registerViewScene);
+        window.show();
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

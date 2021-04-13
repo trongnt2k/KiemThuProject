@@ -20,7 +20,7 @@ public class RegisterService {
     public boolean  registers(String fn,String ln,String e,String us,String pw) throws SQLException{
         Connection conn = JdbcUtils.getConn();
         try{
-        String sql = "INSERT INTO user(firstname,lastname,email,username,password,role) VALUES(?, ?, ?, ?, ?, 1)";
+        String sql = "INSERT INTO user(firstname,lastname,email,username,password,role) VALUES(?, ?, ?, ?, ?, 0)";
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setString(1, fn);
         stm.setString(2, ln);

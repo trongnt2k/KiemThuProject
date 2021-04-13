@@ -15,13 +15,13 @@ import java.sql.Statement;
  * @author User
  */
 public class LoginService {
-        public boolean logins(String un, String pw) throws SQLException{
+        public int logins(String un, String pw) throws SQLException{
         Connection conn = JdbcUtils.getConn();
         Statement stm = conn.createStatement();
         String sql="SELECT * FROM user WHERE username = '"+un+"'AND password = '"+pw+"';";
         ResultSet rs = stm.executeQuery(sql);
         if(rs.next())
-            return true;
-        return false;
+            return rs.getInt("role");
+        return 2;
         }   
 }
