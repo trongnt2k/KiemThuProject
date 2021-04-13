@@ -7,6 +7,7 @@ package com.mycompany.booksellapp;
 
 import booksellapp.Utils;
 import com.mycompany.service.JdbcUtils;
+import com.mycompany.service.LoginService;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,25 +49,21 @@ public class LoginController {
     }
     @FXML
     void login(ActionEvent event) throws SQLException, IOException {
-        Connection conn = JdbcUtils.getConn();
+        LoginService ls = new LoginService();
+        if(usernm.getText() == null || usernm.getText().trim().isEmpty() || passwd.getText() == null || passwd.getText().trim().isEmpty())
+            Utils.getBox("FILL IN USERNAME AND PASSWORD BOX PLEASE", Alert.AlertType.ERROR).show();
+        else if(ls.logins(usernm.getText(), passwd.getText()) == true){
+            Parent pri = FXMLLoader.load(getClass().getResource("primary.fxml"));
         
-        Statement stm = conn.createStatement();
-        String sql="SELECT * FROM user WHERE username = '"+usernm.getText()+"'AND password = '"+passwd.getText()+"';";
-        ResultSet rs = stm.executeQuery(sql);
+            Scene scene = new Scene(pri);
         
-        if(rs.next()){
-        Parent pri = FXMLLoader.load(getClass().getResource("primary.fxml"));
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        Scene scene = new Scene(pri);
-        
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        
-        window.setScene(scene);
-        window.show();
+            window.setScene(scene);
+            window.show();
         }else{
             Utils.getBox("LOGIN FAILED", Alert.AlertType.ERROR).show();
         }
-        conn.close();
     }
 }
 

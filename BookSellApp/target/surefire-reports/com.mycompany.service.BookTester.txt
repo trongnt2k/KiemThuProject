@@ -1,20 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.mycompany.service.BookTester
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 10, Skipped: 0, Time elapsed: 0.506 s <<< FAILURE! - in com.mycompany.service.BookTester
-testTimeout  Time elapsed: 0.012 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.lambda$testTimeout$2(BookTester.java:91)
-
-testWithKeyWord  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.testWithKeyWord(BookTester.java:56)
-
-tesAddBook  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.tesAddBook(BookTester.java:144)
-
-tesAddProductParams{String, BigDecimal, int, int, boolean}[1]  Time elapsed: 0.019 s  <<< ERROR!
+Tests run: 11, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 4.582 s <<< FAILURE! - in com.mycompany.service.BookTester
+tesAddProductParams{String, BigDecimal, int, int, boolean}[1]  Time elapsed: 0.051 s  <<< ERROR!
 org.junit.jupiter.api.extension.ParameterResolutionException: Error converting parameter at index 3: Failed to convert String "true" to type java.lang.Integer
 Caused by: org.junit.jupiter.params.converter.ArgumentConversionException: Failed to convert String "true" to type java.lang.Integer
 Caused by: java.lang.NumberFormatException: For input string: "true"
@@ -28,20 +16,4 @@ tesAddProductParams{String, BigDecimal, int, int, boolean}[3]  Time elapsed: 0.0
 org.junit.jupiter.api.extension.ParameterResolutionException: Error converting parameter at index 3: Failed to convert String "false" to type java.lang.Integer
 Caused by: org.junit.jupiter.params.converter.ArgumentConversionException: Failed to convert String "false" to type java.lang.Integer
 Caused by: java.lang.NumberFormatException: For input string: "false"
-
-testWithUnknownKeyWord  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.testWithUnknownKeyWord(BookTester.java:71)
-
-tesAddBookWithInvalidCusId  Time elapsed: 0 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.tesAddBookWithInvalidCusId(BookTester.java:131)
-
-tesAddBookWithInvalidCate  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.tesAddBookWithInvalidCate(BookTester.java:119)
-
-tesAddBookWithNameNull  Time elapsed: 0.001 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.sql.Connection.prepareStatement(String)" because "this.conn" is null
-	at com.mycompany.booksellapp/com.mycompany.service.BookTester.tesAddBookWithNameNull(BookTester.java:106)
 

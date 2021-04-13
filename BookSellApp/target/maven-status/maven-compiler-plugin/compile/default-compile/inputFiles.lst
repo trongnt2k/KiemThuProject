@@ -1,4 +1,5 @@
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\booksellapp\LoginController.java
+C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\service\RegisterService.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\pojo\Receipt_detail.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\booksellapp\PrimaryController.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\service\CustomerService.java
@@ -13,6 +14,7 @@ C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\booksellapp\Utils
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\service\BookService.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\service\Book_catalogService.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\pojo\Receipt.java
+C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\service\LoginService.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\module-info.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\com\mycompany\pojo\Customer.java
 C:\Users\User\Desktop\KiemThuProject\BookSellApp\src\main\java\booksellapp\BookSellApp.java

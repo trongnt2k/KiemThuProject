@@ -7,6 +7,7 @@ package com.mycompany.booksellapp;
 
 import booksellapp.Utils;
 import com.mycompany.service.JdbcUtils;
+import com.mycompany.service.RegisterService;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,16 +48,10 @@ public class RegisterController {
     }
     @FXML
     void register(ActionEvent event) throws SQLException{
-        Connection conn = JdbcUtils.getConn();
-        String sql = "INSERT INTO user(firstname,lastname,email,username,password,role) VALUES(?, ?, ?, ?, ?, 1)";
-        PreparedStatement stm = conn.prepareStatement(sql);
-        stm.setString(1, FirstName.getText());
-        stm.setString(2, LastName.getText());
-        stm.setString(3, Email.getText());
-        stm.setString(4, UsrName.getText());
-        stm.setString(5, PasWord.getText());
-            
-        stm.executeUpdate();
-        Utils.getBox("REGISTER SUCCESSFUL", Alert.AlertType.INFORMATION).show();
+        RegisterService rs = new RegisterService();
+        if(UsrName.getText() == null || UsrName.getText().trim().isEmpty() || PasWord.getText() == null || PasWord.getText().trim().isEmpty())
+            Utils.getBox("FILL IN USERNAME AND PASSWORD BOX PLEASE", Alert.AlertType.ERROR).show();
+        else if(rs.registers(FirstName.getText(), LastName.getText(), Email.getText(), UsrName.getText(), PasWord.getText()) == true)
+            Utils.getBox("REGISTER SUCCESSFUL", Alert.AlertType.INFORMATION).show();
     }
 }
